@@ -10,6 +10,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ProductComponent } from './components/product/product.component';
 import { FormsModule } from '@angular/forms';
+import { PaginatorModule } from 'primeng/paginator';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     RatingModule,
     FormsModule,
+    PaginatorModule
   ],
   providers: [
     provideHttpClient()
