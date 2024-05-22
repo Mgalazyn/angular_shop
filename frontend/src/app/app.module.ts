@@ -11,6 +11,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { ProductComponent } from './components/product/product.component';
 import { FormsModule } from '@angular/forms';
 import { PaginatorModule } from 'primeng/paginator';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PaginatorModule } from 'primeng/paginator';
     PaginatorModule
   ],
   providers: [
-    provideHttpClient()
+    provideHttpClient(),
+    provideAnimations()
   ],
   bootstrap: [AppComponent]
 })
