@@ -16,7 +16,7 @@ export class HomeComponent {
   products: Product[] = [];
   
   totalRecords: number = 0;
-  rows: number = 5;
+  rows: number = 12;
 
   onProductOutput(product: Product) {
     console.log(product)
@@ -28,13 +28,57 @@ export class HomeComponent {
 
 
   fetchProducts(page: number, perPage: number) {
-    this.productsService.getProducts('http://localhost:3000/clothes', {page, perPage}).subscribe((products: Products) => {
-      this.products = products.items;
-      this.totalRecords = products.total;
+    this.productsService.getProducts('http://localhost:3000/clothes', {page, perPage}).subscribe({
+      next: (data: Products) => {
+        this.products = data.items;
+        this.totalRecords = data.total;
+      },
+      error: (error) => {
+        console.log(error);
+      },
     })
   }
   
+  editProduct(product: Product, id: number) {
+    this.productsService.editProduct(`http://localhost:3000/clothes/${id}`, product).subscribe(
+      {next: (data) => {
+        console.log(data);
+        this.fetchProducts(0, this.rows);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    }
+    );
+  }
+
+  deleteProduct(id: number) {
+    this.productsService.deleteProduct(`http://localhost:3000/clothes/${id}`).subscribe(
+      {next: (data) => {
+        console.log(data);
+        this.fetchProducts(0, this.rows);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    }
+    );
+  }
+
+  addProduct(product: Product, id: number) {
+    this.productsService.addProduct(`http://localhost:3000/clothes/${id}`, product).subscribe(
+      {next: (data) => {
+        console.log(data);
+        this.fetchProducts(0, this.rows);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    }
+    );
+  }
+
   ngOnInit() {
-    this.fetchProducts(0, 12);
+    this.fetchProducts(0, this.rows);
   }
 }

@@ -58,6 +58,7 @@ app.get("/clothes", (req, res) => {
     "rating": 4
   }
 */
+
 app.post("/clothes", (req, res) => {
   const { image, name, price, rating } = req.body;
 
