@@ -6,76 +6,78 @@ import { PaginatorModule } from 'primeng/paginator';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor (
-    private productsService: ProductsService
-  ) {}
+  constructor(private productsService: ProductsService) {}
 
   products: Product[] = [];
-  
+
   totalRecords: number = 0;
   rows: number = 12;
 
   onProductOutput(product: Product) {
-    console.log(product)
+    console.log(product);
   }
 
   onPageChange(event: any) {
     this.fetchProducts(event.page, event.rows);
   }
 
-
   fetchProducts(page: number, perPage: number) {
-    this.productsService.getProducts('http://localhost:3000/clothes', {page, perPage}).subscribe({
-      next: (data: Products) => {
-        this.products = data.items;
-        this.totalRecords = data.total;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    })
+    this.productsService
+      .getProducts('http://localhost:3000/clothes', { page, perPage })
+      .subscribe({
+        next: (data: Products) => {
+          this.products = data.items;
+          this.totalRecords = data.total;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
-  
+
   editProduct(product: Product, id: number) {
-    this.productsService.editProduct(`http://localhost:3000/clothes/${id}`, product).subscribe(
-      {next: (data) => {
-        console.log(data);
-        this.fetchProducts(0, this.rows);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    }
-    );
+    this.productsService
+      .editProduct(`http://localhost:3000/clothes/${id}`, product)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.fetchProducts(0, this.rows);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 
   deleteProduct(id: number) {
-    this.productsService.deleteProduct(`http://localhost:3000/clothes/${id}`).subscribe(
-      {next: (data) => {
-        console.log(data);
-        this.fetchProducts(0, this.rows);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    }
-    );
+    this.productsService
+      .deleteProduct(`http://localhost:3000/clothes/${id}`)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.fetchProducts(0, this.rows);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 
   addProduct(product: Product, id: number) {
-    this.productsService.addProduct(`http://localhost:3000/clothes/${id}`, product).subscribe(
-      {next: (data) => {
-        console.log(data);
-        this.fetchProducts(0, this.rows);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    }
-    );
+    this.productsService
+      .addProduct(`http://localhost:3000/clothes/${id}`, product)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.fetchProducts(0, this.rows);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 
   ngOnInit() {
