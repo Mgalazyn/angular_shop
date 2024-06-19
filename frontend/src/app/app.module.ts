@@ -19,19 +19,16 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    ProductComponent
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RatingModule,
     FormsModule,
-    PaginatorModule
+    PaginatorModule,
   ],
-  providers: [
-    provideHttpClient(),
-    provideAnimations()
-  ],
-  bootstrap: [AppComponent]
+  providers: [provideHttpClient(), provideAnimations()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
