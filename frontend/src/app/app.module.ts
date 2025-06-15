@@ -12,6 +12,9 @@ import { ProductComponent } from './components/product/product.component';
 import { FormsModule } from '@angular/forms';
 import { PaginatorModule } from 'primeng/paginator';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { CartComponent } from './components/cart/cart.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     HeaderComponent,
     FooterComponent,
     ProductComponent,
+    CartComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +32,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     RatingModule,
     FormsModule,
     PaginatorModule,
+    ReactiveFormsModule,
   ],
   providers: [provideHttpClient(), provideAnimations()],
   bootstrap: [AppComponent],

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { Product, Products } from 'src/types';
 import { PaginatorModule } from 'primeng/paginator';
+import { CartService } from '../services/cart.service';
+
 
 @Component({
   selector: 'app-home',
@@ -9,15 +11,21 @@ import { PaginatorModule } from 'primeng/paginator';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private cartService: CartService) {}
 
   products: Product[] = [];
+  cart: Product[] = [];
 
   totalRecords: number = 0;
   rows: number = 12;
 
   onProductOutput(product: Product) {
     console.log(product);
+  }
+
+  onProductAddToCart(product: Product) {
+    this.cartService.addToCart(product);
+    console.log('Product added to cart:', product);
   }
 
   onPageChange(event: any) {

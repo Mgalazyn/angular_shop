@@ -1,0 +1,13 @@
+<div class="cart-wrapper">
+    <h2>Koszyk</h2>
+    <div *ngIf="(cartItems$ | async)?.length; else empty">
+      <div *ngFor="let item of (cartItems$ | async); let i = index" class="cart-item">
+        <span>{{ item.name }} - {{ item.price }} zł</span>
+        <button (click)="removeItem(i)">Usuń</button>
+      </div>
+    </div>
+    <ng-template #empty>
+      <p>Koszyk jest pusty.</p>
+    </ng-template>
+  </div>
+  
