@@ -15,6 +15,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { CartComponent } from './components/cart/cart.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ReactiveFormsModule} from '@angular/forms';
+import { PaymentsComponent } from './components/payments/payments.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ReactiveFormsModule} from '@angular/forms';
     ProductComponent,
     CartComponent,
     ContactComponent,
+    PaymentsComponent,
   ],
   imports: [
     BrowserModule,

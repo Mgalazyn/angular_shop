@@ -9,14 +9,14 @@ export class CartService {
   cartItems$ = this.cartItems.asObservable();
 
   addToCart(item: any) {
-    const updated = [...this.cartItems.value, item];
-    this.cartItems.next(updated);
+    const currentItems = this.cartItems.value;
+    this.cartItems.next([...currentItems, item]);
   }
 
   removeFromCart(index: number) {
-    const updated = [...this.cartItems.value];
-    updated.splice(index, 1);
-    this.cartItems.next(updated);
+    const currentItems = this.cartItems.value;
+    currentItems.splice(index, 1);
+    this.cartItems.next([...currentItems]);
   }
 
   clearCart() {

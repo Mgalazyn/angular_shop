@@ -3,7 +3,7 @@ import { ProductsService } from '../services/products.service';
 import { Product, Products } from 'src/types';
 import { PaginatorModule } from 'primeng/paginator';
 import { CartService } from '../services/cart.service';
-
+import { ProductComponent } from '../components/product/product.component';
 
 @Component({
   selector: 'app-home',
@@ -86,6 +86,10 @@ export class HomeComponent {
           console.log(error);
         },
       });
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
   }
 
   ngOnInit() {

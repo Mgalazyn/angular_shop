@@ -1,13 +1,32 @@
-<div class="cart-wrapper">
-    <h2>Koszyk</h2>
-    <div *ngIf="(cartItems$ | async)?.length; else empty">
-      <div *ngFor="let item of (cartItems$ | async); let i = index" class="cart-item">
-        <span>{{ item.name }} - {{ item.price }} zł</span>
-        <button (click)="removeItem(i)">Usuń</button>
+<div *ngIf="(cartItems$ | async) as cartItems; else emptyCart">
+   <!-- Header with counter -->
+  <div class="cart-header">
+    <h1> Koszyk ( Dodane produkty: {{ cartItems.length }}) </h1>
+  </div>
+  <div class="cart-container">
+    <div class="cart-items">
+        <!-- List of products -->
+        <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+          <img [src]="item.image" alt="Product Thumbnail" class="product-image">
+          <div class="product-details">
+            <h3>{{ item.name }}</h3>
+            <p class="price">{{ item.price | currency }}</p>
+            <button (click)="removeItem(i)" class="remove-button">Usuń</button>
+          </div>
+        </div>
       </div>
     </div>
-    <ng-template #empty>
-      <p>Koszyk jest pusty.</p>
-    </ng-template>
+    <!-- summary section-->
+    <div class="cart-summary">
+        <h3>Podsumowanie</h3>
+        <p class="summary-total">Łączna kwota: <span class="total-price">{{ totalPrice | currency }}</span></p>
+        <div class="actions">
+          <button class="payment-button" routerLink="/payment">Płatność</button>
+          <button class="back-button" routerLink="/main">Wróć do głównej</button>
+        </div>
+      </div>
   </div>
   
+<ng-template #emptyCart>
+  <p>Twój koszyk jest pusty.</p>
+</ng-template>

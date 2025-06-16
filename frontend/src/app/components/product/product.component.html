@@ -10,4 +10,6 @@
     <p-rating [(ngModel)]="product.rating" 
     [readonly]="false" 
     iconCancelClass="hidden"></p-rating>
+    <p class="price">{{ product.price | currency }}</p>
+    <button (click)="addToCart(product)">Dodaj do koszyka</button>
 </div>
