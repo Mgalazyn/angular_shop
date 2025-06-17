@@ -10,6 +10,7 @@ import { ProductComponent } from '../components/product/product.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
+
 export class HomeComponent {
   constructor(private productsService: ProductsService, private cartService: CartService) {}
 
