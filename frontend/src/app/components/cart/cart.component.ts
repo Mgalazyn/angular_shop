@@ -15,8 +15,8 @@ export class CartComponent {
 
   constructor(private cartService: CartService, private router: Router) {
     this.cartItems$.subscribe(items => {
-      this.cartItemCount = items.length;
-      this.totalPrice = items.reduce((sum, item) => sum + Number(item.price), 0);
+      this.cartItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+      this.totalPrice = items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
     });
   }
 

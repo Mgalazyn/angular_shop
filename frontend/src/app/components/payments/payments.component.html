@@ -1,1 +1,17 @@
-<p>payments works!</p>
+<!-- <div class="payments-container">
+    <div #paymentRef></div>
+</div> -->
+<div class="payment-container">
+  <h2>Płatność PayPal</h2>
+  <div *ngIf="!paymentStatus">
+    <div class="amount-row">
+      <span>Do zapłaty:</span>
+      <span class="amount">{{ amount | currency:'USD' }}</span>
+    </div>
+    <button class="pay-btn" (click)="startPayment()">Zapłać przez PayPal</button>
+  </div>
+  <div *ngIf="paymentStatus" class="status-row">
+    <p>{{ paymentStatus }}</p>
+    <a routerLink="/home" class="back-link">Powrót do sklepu</a>
+  </div>
+</div>

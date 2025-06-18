@@ -10,7 +10,14 @@ export class CartService {
 
   addToCart(item: any) {
     const currentItems = this.cartItems.value;
-    this.cartItems.next([...currentItems, item]);
+    const existingIndex = currentItems.findIndex(cartItem => cartItem.id === item.id);
+    if (existingIndex !== -1) {
+      const updatedItems = [...currentItems];
+      updatedItems[existingIndex].quantity += 1;
+      this.cartItems.next(updatedItems);
+    } else {
+      this.cartItems.next([...currentItems, { ...item, quantity: 1 }]);
+  }
   }
 
   removeFromCart(index: number) {
@@ -28,6 +35,6 @@ export class CartService {
   }
 
   getTotalPrice(): number {
-    return this.cartItems.value.reduce((sum, item) => sum + Number(item.price), 0);
+    return this.cartItems.value.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
   }
 }

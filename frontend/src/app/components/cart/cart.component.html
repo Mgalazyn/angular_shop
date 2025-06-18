@@ -10,7 +10,8 @@
           <img [src]="item.image" alt="Product Thumbnail" class="product-image">
           <div class="product-details">
             <h3>{{ item.name }}</h3>
-            <p class="price">{{ item.price | currency }}</p>
+            <p> Ilosc: {{ item.quantity }} </p>
+            <p class="price">{{ item.price * item.quantity | currency }}</p>
             <button (click)="removeItem(i)" class="remove-button">Usuń</button>
           </div>
         </div>

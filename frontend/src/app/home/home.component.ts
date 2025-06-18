@@ -18,7 +18,7 @@ export class HomeComponent {
   cart: Product[] = [];
 
   totalRecords: number = 0;
-  rows: number = 12;
+  rows: number = 18;
 
   onProductOutput(product: Product) {
     console.log(product);
