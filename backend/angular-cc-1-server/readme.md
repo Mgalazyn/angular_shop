@@ -49,3 +49,114 @@ Before you begin, ensure you have the following installed:
 ## License
 
 This project is licensed under the MIT License.
+
+🧾 Clothes Shop API (Node.js + PayPal)
+Prosty backend do sklepu z ubraniami, stworzony w Node.js z użyciem Express i integracją płatności PayPal. Dane produktów są przechowywane lokalnie w pliku db.json.
+
+📦 Funkcjonalności
+REST API dla operacji CRUD na ubraniach
+
+Obsługa paginacji
+
+Integracja z PayPal:
+
+Tworzenie zamówienia
+
+Finalizacja płatności
+
+Middleware CORS i obsługa JSON
+
+🚀 Uruchomienie lokalne
+1. Klonowanie repozytorium
+bash
+Kopiuj
+Edytuj
+git clone https://github.com/twoj-login/clothes-shop-backend.git
+cd clothes-shop-backend
+2. Instalacja zależności
+bash
+Kopiuj
+Edytuj
+npm install
+3. Ustaw zmienne środowiskowe
+Utwórz plik .env w katalogu głównym i dodaj:
+
+env
+Kopiuj
+Edytuj
+PAYPAL_CLIENT_ID=twój_client_id
+PAYPAL_SECRET=twój_secret
+Domyślnie używana jest sandboxowa wersja środowiska PayPal.
+
+4. Uruchom serwer
+bash
+Kopiuj
+Edytuj
+node index.js
+Serwer wystartuje na http://localhost:3000
+
+📡 Endpointy API
+🔁 PayPal Payments
+POST /api/payment
+Tworzy nowe zamówienie PayPal.
+
+Body:
+
+json
+Kopiuj
+Edytuj
+{
+  "total": 50
+}
+Response:
+
+json
+Kopiuj
+Edytuj
+{
+  "approvalUrl": "https://www.paypal.com/checkoutnow?token=...",
+  "orderID": "ID..."
+}
+POST /api/payment/capture
+Finalizuje płatność.
+
+Body:
+
+json
+Kopiuj
+Edytuj
+{
+  "orderID": "ID..."
+}
+Response:
+
+json
+Kopiuj
+Edytuj
+{
+  "status": "COMPLETED",
+  "details": { ... }
+}
+👕 Clothes API
+GET /clothes?page=0&perPage=10
+Zwraca paginowaną listę ubrań.
+
+POST /clothes
+Dodaje nowy produkt.
+
+Body:
+
+json
+Kopiuj
+Edytuj
+{
+  "image": "https://example.com/shirt.png",
+  "name": "T-shirt",
+  "price": "25",
+  "rating": 4
+}
+PUT /clothes/:id
+Aktualizuje produkt o danym ID.
+
+DELETE /clothes/:id
+Usuwa produkt o danym ID.

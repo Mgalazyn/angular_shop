@@ -1,9 +1,10 @@
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-
+const { client } = require("./paypalClient"); // Import PayPal client
 const app = express();
 const port = 3000;
+const checkoutNodeJssdk = require('@paypal/checkout-server-sdk');
 
 // Cors configuration - Allows requests from localhost:4200
 const corsOptions = {
@@ -17,6 +18,48 @@ app.use(cors(corsOptions));
 
 // Use express.json() middleware to parse JSON bodies of requests
 app.use(express.json());
+
+// PayPal payment route
+// Create PayPal order
+app.post('/api/payment', async (req, res) => {
+  const { total } = req.body;
+
+  const request = new checkoutNodeJssdk.orders.OrdersCreateRequest();
+  request.prefer('return=representation');
+  request.requestBody({
+    intent: 'CAPTURE',
+    purchase_units: [{
+      amount: {
+        currency_code: 'USD', // Change to your currency if needed
+        value: total.toString()
+      }
+    }]
+  });
+
+  try {
+    const order = await client().execute(request);
+    // Find approval link
+    const approveUrl = order.result.links.find(link => link.rel === 'approve').href;
+    res.json({ approvalUrl: approveUrl, orderID: order.result.id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Capture PayPal order after approval
+app.post('/api/payment/capture', async (req, res) => {
+  const { orderID } = req.body;
+  const request = new checkoutNodeJssdk.orders.OrdersCaptureRequest(orderID);
+  request.requestBody({});
+
+  try {
+    const capture = await client().execute(request);
+    res.json({ status: 'COMPLETED', details: capture.result });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 // GET route - Allows to get all the items
 // example: localhost:3000/clothes?page=0&perPage=2
